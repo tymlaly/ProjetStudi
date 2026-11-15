@@ -17,5 +17,8 @@ try {
 
     $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
 } catch (PDOException $e) {
-    die("Erreur de connexion à la base de données : " . $e->getMessage());
+    error_log("Erreur de connexion BDD : " . $e->getMessage());
+    echo "<h1>Service momentanément indisponible</h1>";
+    echo "<p>Une erreur technique est survenue. Veuillez réessayer plus tard.</p>";
+    exit;
 }
