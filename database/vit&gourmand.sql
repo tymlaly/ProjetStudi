@@ -1,3 +1,4 @@
+USE vite_et_gourmand;
 CREATE TABLE role (
     id INT AUTO_INCREMENT PRIMARY KEY,
     libelle VARCHAR(50) NOT NULL
@@ -50,23 +51,7 @@ CREATE TABLE menu (
     FOREIGN KEY (theme_id) REFERENCES theme(id)
 );
 
-CREATE TABLE commande (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    numero_commande VARCHAR(50) NOT NULL UNIQUE,
-    date_commande DATE NOT NULL,
-    date_livraison DATE NOT NULL,
-    heure_livraison VARCHAR(50),
-    prix_livraison DOUBLE,
-    nombre_personne INT NOT NULL,
-    prix_total DOUBLE NOT NULL,
-    statut VARCHAR(50) NOT NULL,
-    pret_materiel BOOL,
-    restitution_materiel BOOL,
-    utilisateur_id INT NOT NULL,
-    menu_id INT NOT NULL,
-    FOREIGN KEY (utilisateur_id) REFERENCES utilisateur(id),
-    FOREIGN KEY (menu_id) REFERENCES menu(id)
-);
+
 
 CREATE TABLE contient (
     plat_id INT NOT NULL,
@@ -83,3 +68,13 @@ CREATE TABLE compose (
     FOREIGN KEY (menu_id) REFERENCES menu(id),
     FOREIGN KEY (plat_id) REFERENCES plat(id)
 );
+
+CREATE TABLE avis (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  commentaire TEXT NOT NULL,
+  note INT NOT NULL CHECK (note BETWEEN 1 AND 5),
+  valide BOOLEAN DEFAULT 0
+);
+INSERT INTO avis (commentaire, note, valide) VALUES 
+('Un repas de mariage exceptionnel !', 5, 1),
+('Très bon rapport qualité-prix.', 4, 1);
